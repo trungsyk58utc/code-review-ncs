@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "typeorm": "typeorm -d src/db/database.js",
+    "migration:create": "npm run typeorm migration:create ./src/db/migrations ",
+    "migration:generate": "npm run typeorm migration:generate ./src/db/migrations/$npm_config_name -o",
+    "migration:run": "npm run typeorm migration:run",
+    "migration:revert": "npm run typeorm migration:revert",
+    "seed:run": "node src/db/seeds/run.js",
     "start": "nodemon src/index.js"
   },
   "author": "sy dang trung",
@@ -10,7 +16,11 @@
   "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "nodemon": "^3.1.10"
+    "mysql2": "^3.15.1",
+    "nodemon": "^3.1.10",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.27"
   }
 }
