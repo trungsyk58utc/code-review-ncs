@@ -11,7 +11,7 @@ async function suspendedStudentForTeacher(req, res) {
     await suspendedStudent(email);
     res.status(204).send();
   } catch (error) {
-    res.status(400).json({ message: "Some meaningful error message" });
+    res.status(400).json({ message: error.message || "Some meaningful error message" });
   }
 }
 
@@ -21,7 +21,7 @@ async function registerStudentsToTeacher(req, res) {
     await registerStudent({ teacher, students });
     res.status(204).send();
   } catch (error) {
-    res.status(400).json({ message: "Some meaningful error message" });
+    res.status(400).json({ message: error.message || "Some meaningful error message" });
   }
 }
 
@@ -31,7 +31,7 @@ async function getListStudentRegisterForTeacher(req, res) {
     const students = await getListStudentRegisteredToTeacher(teacher);
     res.json(students);
   } catch (error) {
-    res.status(400).json({ message: "Some meaningful error message" });
+    res.status(400).json({ message: error.message || "Some meaningful error message" });
   }
 }
 
@@ -41,7 +41,7 @@ async function getNotificationRecipients(req, res) {
     const recipients = await retriveNotificationRecipients(teacher, notification);
     res.json(recipients);
   } catch (error) {
-    res.status(400).json({ message: "Some meaningful error message" });
+    res.status(400).json({ message: error.message || "Some meaningful error message" });
   }
 }
 

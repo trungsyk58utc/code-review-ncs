@@ -1,4 +1,4 @@
 const { Database } = require("../db/database");
-const StudentsEntity = require("../entities/Students.entity");
+const studentsEntity = require("../entities/students.entity");
 
-module.exports = Database.getRepository(StudentsEntity);
+module.exports = Database.getRepository(studentsEntity);

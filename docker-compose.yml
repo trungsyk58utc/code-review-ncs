@@ -6,6 +6,8 @@ services:
     restart: always
     ports:
       - "4000:4000"
+    networks:
+      - node_app_network
     depends_on:
       - db
 
@@ -20,8 +22,14 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
+    networks:
+      - node_app_network
     volumes:
       - mysql_data_interview:/var/lib/mysql
 
 volumes:
   mysql_data_interview:
+
+networks:
+  node_app_network:
+    driver: bridge

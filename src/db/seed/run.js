@@ -1,4 +1,4 @@
-const { Database } = require("../../db/database");
+const { Database } = require("../database");
 const { StudentRepo, TeacherRepo } = require("../../repositories");
 const studentsData = require("../data/student.json");
 const teachersData = require("../data/teacher.json");

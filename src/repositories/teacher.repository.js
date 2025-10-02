@@ -1,4 +1,4 @@
 const { Database} = require("../db/database");
-const TeachersEntity = require("../entities/Teachers.entity");
+const teachersEntity = require("../entities/teachers.entity");
 
-module.exports = Database.getRepository(TeachersEntity);
+module.exports = Database.getRepository(teachersEntity);

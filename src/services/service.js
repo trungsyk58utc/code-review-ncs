@@ -20,6 +20,9 @@ async function getTeacherByEmail(email) {
 }
 
 async function suspendedStudent(email) {
+  if (!email) {
+    throw new Error("Student email is required");
+  }
   const student = await studentRepository.findOneOrFail({
     where: { email, isSuspended: false },
     select: ["id", "isSuspended"],
@@ -31,6 +34,15 @@ async function suspendedStudent(email) {
 
 async function registerStudent(data) {
   const { teacher, students } = data;
+
+  if (!teacher) {
+    throw new Error("Teacher email is required");
+  }
+
+  if (!Array.isArray(students) || students.length === 0) {
+    throw new Error("Students must be an array");
+  }
+
   const listAddRegister = [];
   const teacherEntity = await getTeacherByEmail(teacher);
 
@@ -58,6 +70,9 @@ async function getListStudentRegisteredToTeacher(
   teacherEmail,
   checkSuspended = false
 ) {
+  if (!teacherEmail) {
+    throw new Error("At least one teacher is required");
+  }
   const teacher = await getTeacherByEmail(teacherEmail);
 
   const listStudentOfTeacherQuery = teacherStudentRepository
@@ -77,13 +92,18 @@ async function getListStudentRegisteredToTeacher(
 }
 
 async function retriveNotificationRecipients(teacherEmail, notification) {
+  if (!notification) {
+    throw new Error("Notification message is required");
+  }
+
+  if (!teacherEmail) {
+    throw new Error("Teacher email is required");
+  }
   const teacher = await getListStudentRegisteredToTeacher(teacherEmail, true);
 
   const mentionedEmails = (notification.match(/@\S+/g) || []).map((email) =>
     email.substring(1)
   );
-
-  const recipientsSet = new Set([...teacher.students, ...mentionedEmails]);
 
   const nonRecipientsOfTeacher = mentionedEmails.filter(
     (email) => !teacher.students.includes(email)
